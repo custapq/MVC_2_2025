@@ -65,3 +65,22 @@
 2.  Open in IDE (VS Code / IntelliJ / Eclipse)
 3.  Run `./mvnw spring-boot:run`
 4.  เปิด Browser และไปยัง: `http://localhost:8080/` (หน้าแรก)
+   
+
+---
+
+### หน้าลงทะเบียนประชาชน
+<img src="image1.png" alt="หน้าลงทะเบียนประชาชน" width="600">
+
+### หน้าจัดสรรที่พัก
+<img src="image2.png" alt="หน้าจัดสรรที่พัก" width="600">
+
+### หน้าจัดสรรที่พัก แสดงการเลือกประชาชนตามความสำคัญ
+<img src="image4.png" alt="หน้าจัดสรรที่พัก2" width="600">
+
+### หน้าจัดสรรที่พัก แสดงการเลือกที่พักที่เต็มแล้ว
+<img src="image5.png" alt="หน้าจัดสรรที่พัก3" width="600">
+
+### หน้าแสดงรายงาน
+<img src="image3.png" alt="หน้าแสดงรายงาน" width="600">
+
