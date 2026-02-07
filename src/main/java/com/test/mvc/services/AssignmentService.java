@@ -26,6 +26,7 @@ public class AssignmentService {
         this.shelterRepository = shelterRepository;
     }
 
+    // กำหนดศุนย์พักพิงให้ประชาชน
     public void assignCitizenToShelter(String citizenCode, String shelterCode) throws Exception {
 
         if (assignmentRepository.existsByCitizenCode(citizenCode)) {
@@ -44,10 +45,9 @@ public class AssignmentService {
             throw new Exception("ศูนย์พักพิงนี้เต็มแล้ว! กรุณาเลือกศูนย์อื่น");
         }
 
-        // เช็ค Business Rule: กลุ่มเสี่ยงต้องไปที่เสี่ยงต่ำเท่านั้น
+        // เช็คว่ากลุ่มเสี่ยงต้องไปที่เสี่ยงต่ำเท่านั้น
         if (citizen.getCitizenType().equalsIgnoreCase("กลุ่มเสี่ยง")
                 && !shelter.getRiskLevel().equalsIgnoreCase("ต่ำ")) {
-            // แจ้งเตือนชัดเจน
             throw new Exception(
                     "ไม่สามารถจัดสรรได้: 'กลุ่มเสี่ยง' ต้องพักในศูนย์ความเสี่ยง 'ต่ำ' เท่านั้น");
         }
@@ -60,10 +60,13 @@ public class AssignmentService {
 
         assignmentRepository.save(assignment);
 
+        // อัพเดตจำนวนผู้เข้าพักในศูนย์
         shelter.setCurrentOccupancy(shelter.getCurrentOccupancy() + 1);
         shelterRepository.save(shelter);
     }
 
+
+    // ดึงรายการประชาชนที่ยังไม่ได้รับการจัดสรรโดยเรียงลำดำับความสำคัญ
     public List<CitizenModel> getUnassignedCitizensSorted() {
         List<CitizenModel> allCitizens = citizenRepository.findAll();
 
@@ -73,13 +76,13 @@ public class AssignmentService {
                 .collect(Collectors.toList());
     }
 
+    // ดึงกลุ่มประชาชนที่มีลำดับความสำคัญสูงสุด
     public List<CitizenModel> getTopPriorityCitizens() {
         List<CitizenModel> sortedList = getUnassignedCitizensSorted();
-
+        
         if (sortedList.isEmpty()) {
             return sortedList;
         }
-
         int maxScore = sortedList.get(0).getPriorityScore();
 
         return sortedList.stream().filter(c -> c.getPriorityScore() == maxScore)

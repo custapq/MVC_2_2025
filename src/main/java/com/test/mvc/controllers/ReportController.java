@@ -21,6 +21,7 @@ public class ReportController {
         this.assignmentRepository = assignmentRepository;
     }
 
+    // ดึงข้อมูลเพื่อไปแสดงผลที่หน้า report
     @GetMapping("/report")
     public String report(Model model) {
         model.addAttribute("citizens", citizenRepository.findAll());

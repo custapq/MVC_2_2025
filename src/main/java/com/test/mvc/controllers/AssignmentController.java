@@ -24,6 +24,7 @@ public class AssignmentController {
         this.shelterRepository = shelterRepository;
     }
 
+    // ดึงข้อมูลเพื่อไปแสดงผลที่หน้า assign
     @GetMapping
     public String viewAssign(Model model) {
         model.addAttribute("shelters", shelterRepository.findAll());
@@ -33,12 +34,14 @@ public class AssignmentController {
         return "assign";
     }
 
+
+    // ดำเนินการจัดสรรศูนย์พักพิงให้ประชาชน
     @PostMapping
     public String assign(@RequestParam String citizenCode, @RequestParam String shelterCode,
             RedirectAttributes redirectAttributes) {
         try {
             assignmentService.assignCitizenToShelter(citizenCode, shelterCode);
-            redirectAttributes.addFlashAttribute("successMessage", "จัดสรรที่พักสำเร็จ!");
+            redirectAttributes.addFlashAttribute("successMessage", "จัดสรรศูนย์พักพิงสำเร็จ!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }

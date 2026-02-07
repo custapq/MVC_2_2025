@@ -64,6 +64,7 @@ public class CitizenModel {
         this.citizenType = citizenType;
     }
 
+    // คำนวณคะแนนลำดับความสำคัญ
     public int getPriorityScore() {
         if (this.age <= 12 || this.age >= 60) {
             return 3;

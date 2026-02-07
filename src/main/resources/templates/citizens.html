@@ -5,6 +5,11 @@
     <link rel="stylesheet" th:href="@{/styles/citizen.css}" />
   </head>
   <body>
+    <div style="text-align: right; margin-bottom: 20px">
+      <a th:href="@{/}" style="color: #333; font-weight: bold; font-size: 16px"
+        >กลับหน้าหลัก
+      </a>
+    </div>
     <h2>Citizen Registration</h2>
     <div
       th:if="${errorMessage}"

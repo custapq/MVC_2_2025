@@ -1,0 +1,24 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Shelter System Home</title>
+    <link rel="stylesheet" th:href="@{/styles/home.css}" />
+  </head>
+  <body>
+    <h1>ระบบบจัดการศูนย์พักพิง</h1>
+
+    <div class="menu-container">
+      <a th:href="@{/citizens}" class="menu-card">
+        <div class="label">ลงทะเบียนประชาชน</div>
+      </a>
+
+      <a th:href="@{/assign}" class="menu-card">
+        <div class="label">จัดสรรศูนย์พักพิง</div>
+      </a>
+
+      <a th:href="@{/report}" class="menu-card">
+        <div class="label">ดูรายงานสรุป</div>
+      </a>
+    </div>
+  </body>
+</html>

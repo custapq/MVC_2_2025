@@ -21,9 +21,11 @@ public class CitizenController {
     public CitizenController(CitizenRepository citizenRepository) {
         this.citizenRepository = citizenRepository;
     }
-
+    
+    // ดึงข้อมูลประชาชนทั้งหมดเพื่อแสดงผลที่หน้า citizens
     @GetMapping
     public String viewCitizens(Model model, @RequestParam(required = false) String error) {
+        // ตรวจสอบข้อผิดพลาดจากการเพิ่มข้อมูล
         if ("duplicate".equals(error)) {
             model.addAttribute("errorMessage", "รหัสประชาชนนี้มีอยู่ในระบบแล้ว");
         } else if ("invalid_length".equals(error)) {
@@ -34,6 +36,7 @@ public class CitizenController {
         return "citizens";
     }
 
+    // เพิ่มข้อมูลประชาชนใหม่
     @PostMapping("/add")
     public String addCitizen(@ModelAttribute CitizenModel citizen) {
         String code = citizen.getCitizenCode();
