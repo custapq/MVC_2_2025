@@ -49,7 +49,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="c : ${citizens}">
+        <tr th:each="c : ${unassignedCitizens}">
           <td th:text="${c.citizenCode}"></td>
           <td th:text="${c.citizenType}"></td>
         </tr>

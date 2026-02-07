@@ -5,27 +5,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.test.mvc.repositories.AssignmentRepository;
-import com.test.mvc.repositories.CitizenRepository;
+import com.test.mvc.services.AssignmentService;
 
 @Controller
 public class ReportController {
 
-    private final CitizenRepository citizenRepository;
     private final AssignmentRepository assignmentRepository;
+    private final AssignmentService assignmentService;
 
-    public ReportController(
-            CitizenRepository citizenRepository,
-            AssignmentRepository assignmentRepository
-    ) {
-        this.citizenRepository = citizenRepository;
+    public ReportController(AssignmentRepository assignmentRepository,
+            AssignmentService assignmentService) {
         this.assignmentRepository = assignmentRepository;
+        this.assignmentService = assignmentService;
     }
 
     // ดึงข้อมูลเพื่อไปแสดงผลที่หน้า report
     @GetMapping("/report")
     public String report(Model model) {
-        model.addAttribute("citizens", citizenRepository.findAll());
         model.addAttribute("assignments", assignmentRepository.findAll());
+        model.addAttribute("unassignedCitizens", assignmentService.getUnassignedCitizensSorted());
+
         return "report";
     }
 }
