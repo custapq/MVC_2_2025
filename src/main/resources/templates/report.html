@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Report</title>
+    <link rel="stylesheet" th:href="@{/styles/report.css}" />
+  </head>
+  <body>
+    <h2>Assignment Report</h2>
+
+    <h3>Assigned (ผู้ที่ได้รับที่พักแล้ว)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Citizen Code</th>
+          <th>Shelter Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="a : ${assignments}">
+          <td th:text="${a.citizenCode}"></td>
+          <td th:text="${a.shelterCode}"></td>
+        </tr>
+        <tr th:if="${assignments.empty}">
+          <td colspan="3" class="text-center">ยังไม่มีการจัดสรร</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr
+      style="
+        width: 80%;
+        margin: 40px auto;
+        border: 0;
+        border-top: 1px solid #ccc;
+      "
+    />
+
+    <h3>All Citizens (รายชื่อทั้งหมด)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Citizen Code</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="c : ${citizens}">
+          <td th:text="${c.citizenCode}"></td>
+          <td th:text="${c.citizenType}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

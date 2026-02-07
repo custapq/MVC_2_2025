@@ -1,0 +1,97 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Citizens</title>
+    <link rel="stylesheet" th:href="@{/styles/citizen.css}" />
+  </head>
+  <body>
+    <h2>Citizen Registration</h2>
+    <div
+      th:if="${errorMessage}"
+      style="color: red; font-weight: bold; margin-bottom: 15px"
+    >
+      <span th:text="${errorMessage}"></span>
+    </div>
+    <form th:action="@{/citizens/add}" method="post">
+      Code:
+      <input
+        name="citizenCode"
+        required
+        maxlength="13"
+        placeholder="เลข 13 หลัก"
+      /><br />
+      Age: <input name="age" type="number" required /><br />
+      Health: <input name="healthCondition" value="ปกติ" /><br />
+      Type:
+      <select name="citizenType">
+        <option value="ทั่วไป">ทั่วไป</option>
+        <option value="กลุ่มเสี่ยง">กลุ่มเสี่ยง</option>
+        <option value="VIP">VIP</option></select
+      ><br />
+      <button type="submit">Register</button>
+    </form>
+
+    <hr />
+    <h3>All Citizens (Separated by Type)</h3>
+
+    <div class="group-header">VIP</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Age</th>
+          <th>Health</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="c : ${citizens}" th:if="${c.citizenType == 'VIP'}">
+          <td th:text="${c.citizenCode}"></td>
+          <td th:text="${c.age}"></td>
+          <td th:text="${c.healthCondition}"></td>
+          <td th:text="${c.startDate}"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="group-header">กลุ่มเสี่ยง (Risk Group)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Age</th>
+          <th>Health</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="c : ${citizens}" th:if="${c.citizenType == 'กลุ่มเสี่ยง'}">
+          <td th:text="${c.citizenCode}"></td>
+          <td th:text="${c.age}"></td>
+          <td th:text="${c.healthCondition}"></td>
+          <td th:text="${c.startDate}"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="group-header">ทั่วไป (General)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Age</th>
+          <th>Health</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="c : ${citizens}" th:if="${c.citizenType == 'ทั่วไป'}">
+          <td th:text="${c.citizenCode}"></td>
+          <td th:text="${c.age}"></td>
+          <td th:text="${c.healthCondition}"></td>
+          <td th:text="${c.startDate}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

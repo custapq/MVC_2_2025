@@ -1,0 +1,98 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Assign Shelter</title>
+    <link rel="stylesheet" th:href="@{/styles/assign.css}" />
+  </head>
+  <body>
+    <h2>ระบบจัดสรรที่พักพิง (Shelter Assignment)</h2>
+
+    <div
+      th:if="${successMessage}"
+      class="alert alert-success"
+      th:text="${successMessage}"
+    ></div>
+    <div
+      th:if="${errorMessage}"
+      class="alert alert-danger"
+      th:text="${errorMessage}"
+    ></div>
+
+    <div class="container">
+      <div class="left-panel">
+        <form th:action="@{/assign}" method="post">
+          <h3>เลือกข้อมูลจัดสรร</h3>
+          <label>Citizen (เรียงตามความสำคัญ):</label><br />
+          <select name="citizenCode" required>
+            <option value="" disabled selected>-- เลือกรายชื่อ --</option>
+            <option
+              th:each="c : ${dropdownCitizens}"
+              th:value="${c.citizenCode}"
+              th:text="${'[Score: ' + c.priorityScore + '] ' + c.citizenCode + ' (Age: ' + c.age + ')'}"
+              th:style="${c.priorityScore == 3} ? 'color:red; font-weight:bold;' : ''"
+            ></option>
+          </select>
+          <br /><br />
+
+          <label>Shelter (ศูนย์พักพิง):</label><br />
+          <select name="shelterCode" required>
+            <option
+              th:each="s : ${shelters}"
+              th:value="${s.shelterCode}"
+              th:text="${s.shelterCode + ' (' + s.riskLevel + ') - ว่าง: ' + (s.capacity - s.currentOccupancy)}"
+              th:disabled="${s.currentOccupancy >= s.capacity}"
+            ></option>
+          </select>
+          <br /><br />
+          <button type="submit">ยืนยัน (Assign)</button>
+        </form>
+
+        <hr />
+        <h3>สถานะศูนย์พักพิง</h3>
+        <table border="1" style="width: 100%">
+          <tr>
+            <th>Code</th>
+            <th>Occupancy</th>
+            <th>Risk</th>
+          </tr>
+          <tr th:each="s : ${shelters}">
+            <td th:text="${s.shelterCode}"></td>
+            <td th:text="${s.currentOccupancy + '/' + s.capacity}"></td>
+            <td th:text="${s.riskLevel}"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="right-panel">
+        <h3>ลำดับความสำคัญ (Unassigned List)</h3>
+        <p style="font-size: 0.9em; color: gray">
+          * เรียงลำดับตามคะแนนความจำเป็นเร่งด่วน
+        </p>
+        <table border="1" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Score</th>
+              <th>Code</th>
+              <th>Age</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              th:each="c : ${allCitizens}"
+              th:class="${c.priorityScore == 3} ? 'priority-high' : (${c.priorityScore == 2} ? 'priority-medium' : 'priority-normal')"
+            >
+              <td th:text="${c.priorityScore}" style="text-align: center"></td>
+              <td th:text="${c.citizenCode}"></td>
+              <td th:text="${c.age}"></td>
+              <td th:text="${c.citizenType}"></td>
+            </tr>
+            <tr th:if="${allCitizens.empty}">
+              <td colspan="4" style="text-align: center">จัดสรรครบทุกคนแล้ว</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

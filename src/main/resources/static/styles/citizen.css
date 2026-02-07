@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box; 
+}
+
+body {
+    max-width: 800px;       
+    margin: 0 auto;        
+    padding: 20px;
+    text-align: center;    
+}
+
+form {
+    display: inline-block; 
+    text-align: left;      
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;   
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+.group-header {
+    background-color: #4CAF50; 
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    text-align: left;
+    width: 80%;             
+    margin: 20px auto 0 auto; 
+    border-radius: 5px 5px 0 0; 
+}
+
+
+table {
+    width: 80%;   
+    margin: 0 auto 20px auto; 
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
